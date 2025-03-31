@@ -7,17 +7,17 @@ client = MongoClient("mongodb://localhost:27017/")  # Change URI if using a clou
 # Create a database
 db = client["hobbynet"]
 
-# Create a collection (like a table in SQL)
+
 mentors_collection = db["mentors"]
 
-# Insert a test document
-test_mentor = {
-    "name": "John Doe",
-    "hobby": "Painting",
-    "experience": 5,
-    "rating": 4.7
-}
+# # Insert a test document
+# test_mentor = {
+#     "name": "John Doe",
+#     "hobby": "Painting",
+#     "experience": 5,
+#     "rating": 4.7
+# }
 
-mentors_collection.insert_one(test_mentor)
+# mentors_collection.insert_one(test_mentor)
 
-print("Database and test mentor added successfully!")
+# print("Database and test mentor added successfully!")

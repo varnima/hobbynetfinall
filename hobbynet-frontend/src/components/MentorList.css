@@ -1,0 +1,77 @@
+.mentorlist-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #f9a825, #ffcc80);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .mentorlist-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .mentorlist-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .mentorlist-input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 2px solid #f57c00;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .mentorlist-input:focus {
+    outline: none;
+    border-color: #ff9800;
+  }
+  
+  .mentorlist-button {
+    padding: 10px 20px;
+    background: #f57c00;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .mentorlist-button:hover {
+    background: #ff9800;
+  }
+  
+  .mentorlist {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mentorlist-item {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .mentorlist-item strong {
+    color: #f57c00;
+  }
+  
+  .mentorlist-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #fff;
+  }

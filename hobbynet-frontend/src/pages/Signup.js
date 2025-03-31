@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Signup.css"; // Import the CSS file
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5000";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +11,8 @@ const Signup = () => {
     password: "",
     role: "user", // Default role
   });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,8 +21,21 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Basic validation
+    if (!formData.email.includes("@")) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      alert("Password must be at least 8 characters long.");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const response = await fetch("http://127.0.0.1:5000/signup", {
+      const response = await fetch(`${API_BASE_URL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,32 +43,73 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
 
+      setLoading(false);
+
       const data = await response.json();
       if (data.success) {
-        alert("Signup successful! Please login.");
+        localStorage.setItem("username", formData.username); // Store the username in local storage
+        localStorage.setItem("role", formData.role); // Store the role in local storage
+        alert("Signup successful!");
+
+        // Redirect based on role
+        if (formData.role === "mentor") {
+          navigate("/mentor-dashboard");
+        } else {
+          navigate("/user-dashboard");
+        }
       } else {
         alert(data.message);
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error during signup:", error);
-      alert("Signup failed!");
+      alert("Signup failed! Please try again.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200">
-      <h2 className="text-2xl font-bold mb-4">Signup</h2>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} required className="border p-2 mb-2 w-full"/>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required className="border p-2 mb-2 w-full"/>
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required className="border p-2 mb-2 w-full"/>
-        
-        <select name="role" onChange={handleChange} className="border p-2 mb-2 w-full">
+    <div className="signup-container">
+      <h2 className="signup-title">Signup</h2>
+      <form onSubmit={handleSubmit} className="signup-form">
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+          required
+          className="signup-input"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+          className="signup-input"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+          className="signup-input"
+        />
+        <select
+          name="role"
+          onChange={handleChange}
+          className="signup-select"
+        >
           <option value="user">User</option>
           <option value="mentor">Mentor</option>
         </select>
-
-        <button type="submit" className="bg-blue-500 text-white p-2 w-full">Signup</button>
+        <button
+          type="submit"
+          className="signup-button"
+          disabled={loading}
+        >
+          {loading ? "Signing up..." : "Signup"}
+        </button>
       </form>
     </div>
   );
