@@ -1,0 +1,115 @@
+/* Fullscreen container styling */
+.dashboard-container {
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  padding: 20px;
+  background: linear-gradient(135deg, #f9a825, #ffcc80); /* Yellow to orange gradient */
+  text-align: center;
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Title styling */
+.dashboard-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for contrast */
+  margin-bottom: 20px;
+}
+
+/* Message styling */
+.dashboard-message {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+/* Hobby list styling */
+.hobby-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px; /* Limit the width of the grid */
+}
+
+/* Hobby card styling */
+.hobby-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 250px; /* Fixed width for cards */
+  text-align: center;
+}
+
+.hobby-card:hover {
+  transform: scale(1.1); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.hobby-card h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #f57c00; /* Orange text */
+}
+
+.hobby-card p {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Button styling */
+.dashboard-button {
+  padding: 10px 20px;
+  background-color: #f57c00; /* Orange button */
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+.dashboard-button:hover {
+  background-color: #ef6c00; /* Darker orange on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.dashboard-button:active {
+  background-color: #e65100; /* Even darker orange on click */
+  transform: scale(0.98); /* Slight shrink effect */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 2.5rem;
+  }
+
+  .dashboard-message {
+    font-size: 1.2rem;
+  }
+
+  .hobby-card {
+    width: 200px; /* Smaller cards on smaller screens */
+  }
+
+  .hobby-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .hobby-card p {
+    font-size: 0.9rem;
+  }
+}

@@ -5,7 +5,11 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import MentorDashboard from "./pages/MentorDashboard";
 import UserDashboard from "./pages/UserDashboard";
+import CreatePost from "./pages/CreatePost";
 import "./style.css";
+import MentorSignup from "./pages/MentorSignup";
+import RecommendPage from "./pages/RecommendPage";
+import CommunityPage from "./pages/CommunityPage";
 
 const App = () => {
   return (
@@ -18,6 +22,11 @@ const App = () => {
           <Route path="/mentor-dashboard" element={<MentorDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/" element={<Login />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route path="/community/:hobby" element={<CommunityPage />} />
+          <Route path="/create-post/:hobby" element={<CreatePost />} />
+          <Route path="/mentor-signup" element={<MentorSignup />} />
+          <Route path="/recommend" element={<RecommendPage />} />
         </Routes>
       </div>
     </Router>

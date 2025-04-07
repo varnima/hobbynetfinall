@@ -1,0 +1,90 @@
+/* Container styling */
+.container {
+  max-width: 800px; /* Increased width for full-page view */
+  margin: 50px auto; /* Center the container with top margin */
+  padding: 30px;
+  background: linear-gradient(135deg, #ffcc80, #f9a825); /* Yellow to orange gradient */
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow for emphasis */
+}
+
+/* Header styling */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff; /* White text for contrast */
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Stronger shadow for text */
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add spacing between form elements */
+}
+
+/* Input and textarea styling */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ffcc80; /* Border matches the theme */
+  border-radius: 8px;
+  font-size: 1.1rem;
+  background-color: #fff3e0; /* Light orange background */
+  color: #333; /* Dark text for readability */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #f57c00; /* Orange border on focus */
+  box-shadow: 0 0 8px rgba(245, 124, 0, 0.6); /* Orange glow */
+}
+
+/* Button styling */
+button[type="submit"] {
+  padding: 15px 25px;
+  background-color: #f57c00; /* Orange button */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #ef6c00; /* Darker orange on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+button[type="submit"]:active {
+  background-color: #e65100; /* Even darker orange on click */
+  transform: scale(0.98); /* Slight shrink effect */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  input[type="text"],
+  textarea {
+    font-size: 1rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+  }
+}
