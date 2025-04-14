@@ -8,8 +8,14 @@ import UserDashboard from "./pages/UserDashboard";
 import CreatePost from "./pages/CreatePost";
 import "./style.css";
 import MentorSignup from "./pages/MentorSignup";
-import RecommendPage from "./pages/RecommendPage";
+import MentorProfilePage from "./pages/MentorProfilePage";
 import CommunityPage from "./pages/CommunityPage";
+import LandingPage from "./pages/LandingPage";
+import ProfilePage from "./pages/ProfilePage";
+import MentorDiscovery from "./pages/MentorDiscovery";
+import ChatPage from "./pages/ChatPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import SettingsPage from "./pages/SettingsPage";
 
 const App = () => {
   return (
@@ -21,12 +27,18 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mentor-dashboard" element={<MentorDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/" element={<Login />} />
+          
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/community/:hobby" element={<CommunityPage />} />
+          <Route path="/community" element={<CommunityPage />} />
           <Route path="/create-post/:hobby" element={<CreatePost />} />
           <Route path="/mentor-signup" element={<MentorSignup />} />
-          <Route path="/recommend" element={<RecommendPage />} />
+          <Route path="/mentor/:id" element={<MentorProfilePage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/mentor-discovery" element={<MentorDiscovery />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/chat" element={<ChatPage/>} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,63 @@
+/* src/pages/SettingsPage.css */
+
+.settings-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #fff9e6;
+    border: 1px solid #ffd369;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .settings-heading {
+    text-align: center;
+    color: #ff7b00;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .settings-form label {
+    display: block;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .settings-form input[type="text"],
+  .settings-form input[type="email"],
+  .settings-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ffa500;
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+  }
+  
+  .settings-form select {
+    height: 100px;
+  }
+  
+  .checkbox-label {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .save-btn {
+    background-color: #ff7b00;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .save-btn:hover {
+    background-color: #e36b00;
+  }
+  

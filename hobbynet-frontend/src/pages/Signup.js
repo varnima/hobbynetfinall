@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
 import "./Signup.css"; // Import the CSS file
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5000";
@@ -53,7 +53,7 @@ const Signup = () => {
 
         // Redirect based on role
         if (formData.role === "mentor") {
-          navigate("/mentor-dashboard");
+          navigate("/mentor-signup"); // Redirect to MentorSignup.js
         } else {
           navigate("/user-dashboard");
         }
@@ -111,6 +111,12 @@ const Signup = () => {
           {loading ? "Signing up..." : "Signup"}
         </button>
       </form>
+      <p className="signup-footer">
+        Already have an account?{" "}
+        <Link to="/login" className="signup-login-link">
+          Login here
+        </Link>
+      </p>
     </div>
   );
 };
