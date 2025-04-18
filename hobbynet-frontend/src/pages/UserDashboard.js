@@ -1,11 +1,32 @@
 
 
-// import React from "react";
+// import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 // import "./Dashboard.css";
 
 // export default function UserDashboard() {
 //   const navigate = useNavigate(); // Initialize useNavigate
+//   const [mentors, setMentors] = useState([]); // State to store recommended mentors
+//   const [showAllMentors, setShowAllMentors] = useState(false); // State to toggle between showing 3 mentors and all mentors
+
+//   // Fetch recommended mentors from the backend
+//   useEffect(() => {
+//     const fetchRecommendedMentors = async () => {
+//       try {
+//         const response = await fetch("http://127.0.0.1:5000/api/recommend/mentors"); // Replace with your backend endpoint
+//         const data = await response.json();
+//         if (data.success) {
+//           setMentors(data.mentors); // Set the mentors in state
+//         } else {
+//           console.error("Failed to fetch mentors:", data.message);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching mentors:", error);
+//       }
+//     };
+
+//     fetchRecommendedMentors();
+//   }, []);
 
 //   const handleNavigation = (path) => {
 //     navigate(path); // Navigate to the specified path
@@ -55,19 +76,23 @@
 //           <div className="recommend-section">
 //             <h3>Recommended Mentors</h3>
 //             <div className="card-container">
-//               <div className="mentor-card">
-//                 <h4>Priya Sharma</h4>
-//                 <p>🎹 Piano Mentor</p>
-//               </div>
-//               <div className="mentor-card">
-//                 <h4>Ravi Mehra</h4>
-//                 <p>📷 Photography Mentor</p>
-//               </div>
-//               <div className="mentor-card">
-//                 <h4>Aisha Khan</h4>
-//                 <p>🧘 Yoga Mentor</p>
-//               </div>
+//               {(showAllMentors ? mentors : mentors.slice(0, 3)).map((mentor, index) => (
+//                 <div className="mentor-card" key={index}>
+//                   <h4>{mentor.name}</h4>
+//                   <p>🎯 Hobby: {mentor.hobby}</p>
+//                   <p>⭐ Rating: {mentor.rating}</p>
+//                   <p>📍 Location: {mentor.location}</p>
+//                 </div>
+//               ))}
 //             </div>
+//             {mentors.length > 3 && (
+//               <button
+//                 className="show-more-btn"
+//                 onClick={() => setShowAllMentors(!showAllMentors)}
+//               >
+//                 {showAllMentors ? "Show Less" : "Show More Mentors"}
+//               </button>
+//             )}
 //           </div>
 
 //           {/* Join Hobby Group */}
@@ -163,7 +188,7 @@ export default function UserDashboard() {
             <li onClick={() => handleNavigation("/mentor-discovery")}>🔍 Explore Mentors</li>
             <li onClick={() => handleNavigation("/chat")}>💬 Chats</li>
             <li onClick={() => handleNavigation("/community")}>🌐 Community</li>
-            <li onClick={() => handleNavigation("/settings")}>⚙️ Settings</li>
+            <li onClick={() => handleNavigation("/resources")}>📚 Resources & Workshops</li>
           </ul>
         </aside>
 

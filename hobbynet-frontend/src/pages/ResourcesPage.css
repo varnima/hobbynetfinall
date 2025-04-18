@@ -1,0 +1,76 @@
+.page-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, orange, yellow);
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #000;
+  }
+  
+  .page-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px yellow;
+  }
+  
+  .section {
+    margin-bottom: 50px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    color: black;
+    border-bottom: 3px solid orange;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    background: #fff;
+    border-left: 8px solid orange;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card h3 {
+    color: orange;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .card a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    background-color: orange;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s;
+  }
+  
+  .card a:hover {
+    background-color: yellow;
+    color: black;
+  }
+  

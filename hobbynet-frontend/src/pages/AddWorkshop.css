@@ -1,0 +1,46 @@
+.add-workshop {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: linear-gradient(to bottom right, #ffe259, #ffa751); /* yellow to orange */
+    border: 2px solid black;
+    border-radius: 15px;
+    color: #111;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .add-workshop h2 {
+    text-align: center;
+    color: #000;
+  }
+  
+  .add-workshop form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .add-workshop input,
+  .add-workshop textarea,
+  .add-workshop button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-size: 1rem;
+  }
+  
+  .add-workshop textarea {
+    resize: vertical;
+  }
+  
+  .add-workshop button {
+    background-color: black;
+    color: yellow;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .add-workshop button:hover {
+    background-color: #333;
+  }
+  

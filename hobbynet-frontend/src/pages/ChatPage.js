@@ -1,24 +1,86 @@
-// import React, { useState } from 'react';
+
+// import React, { useState, useEffect } from 'react';
 // import './ChatPage.css';
 
-// const conversations = [
-//   { id: 1, name: 'Riya Mehta', lastMessage: 'See you at 5 PM!', online: true },
-//   { id: 2, name: 'Amit Verma', lastMessage: 'Thanks for the session!', online: false },
-//   { id: 3, name: 'Sneha Singh', lastMessage: 'Can you help with sketching?', online: true },
-// ];
-
 // const ChatPage = () => {
-//   const [activeConversation, setActiveConversation] = useState(conversations[0]);
-//   const [messages, setMessages] = useState([
-//     { sender: 'them', text: 'Hi! Ready for the session?' },
-//     { sender: 'me', text: 'Yes, let’s start!' },
-//   ]);
-//   const [input, setInput] = useState('');
+//   const [conversations, setConversations] = useState([]); // Conversations fetched from the backend
+//   const [activeConversation, setActiveConversation] = useState(null); // Currently active conversation
+//   const [messages, setMessages] = useState([]); // Messages for the active conversation
+//   const [input, setInput] = useState(''); // Input for the message box
+//   const userId = 'user1'; // Replace with the logged-in user's ID
 
-//   const handleSend = () => {
+//   // Fetch conversations from the backend
+//   useEffect(() => {
+//     const fetchConversations = async () => {
+//       try {
+//         const response = await fetch(`http://127.0.0.1:5000/api/conversations/${userId}`);
+//         const data = await response.json();
+//         if (data.success) {
+//           setConversations(data.conversations);
+//           setActiveConversation(data.conversations[0]); // Set the first conversation as active
+//         } else {
+//           console.error('Failed to fetch conversations:', data.error);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching conversations:', error);
+//       }
+//     };
+
+//     fetchConversations();
+//   }, [userId]);
+
+//   // Fetch messages for the active conversation
+//   useEffect(() => {
+//     if (!activeConversation) return;
+
+//     const fetchMessages = async () => {
+//       try {
+//         const response = await fetch(`http://127.0.0.1:5000/api/messages/${activeConversation._id}`);
+//         const data = await response.json();
+//         if (data.success) {
+//           setMessages(data.messages);
+//         } else {
+//           console.error('Failed to fetch messages:', data.error);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching messages:', error);
+//       }
+//     };
+
+//     fetchMessages();
+//   }, [activeConversation]);
+
+//   // Handle sending a new message
+//   const handleSend = async () => {
 //     if (input.trim() === '') return;
-//     setMessages([...messages, { sender: 'me', text: input }]);
-//     setInput('');
+
+//     const newMessage = {
+//       conversation_id: activeConversation._id,
+//       sender_id: userId,
+//       receiver_id: activeConversation.user2_id, // Assuming user2_id is the receiver
+//       content: input,
+//       timestamp: new Date().toISOString(),
+//     };
+
+//     try {
+//       const response = await fetch('http://127.0.0.1:5000/api/messages', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(newMessage),
+//       });
+
+//       const data = await response.json();
+//       if (data.success) {
+//         setMessages([...messages, data.message]); // Add the new message to the chat
+//         setInput(''); // Clear the input field
+//       } else {
+//         console.error('Failed to send message:', data.error);
+//       }
+//     } catch (error) {
+//       console.error('Error sending message:', error);
+//     }
 //   };
 
 //   return (
@@ -27,43 +89,49 @@
 //         <h3>Chats</h3>
 //         {conversations.map((c) => (
 //           <div
-//             key={c.id}
-//             className={`conversation-item ${activeConversation.id === c.id ? 'active' : ''}`}
+//             key={c._id}
+//             className={`conversation-item ${activeConversation && activeConversation._id === c._id ? 'active' : ''}`}
 //             onClick={() => setActiveConversation(c)}
 //           >
 //             <div className={`status-dot ${c.online ? 'online' : 'offline'}`}></div>
 //             <div>
-//               <strong>{c.name}</strong>
-//               <p>{c.lastMessage}</p>
+//               <strong>{c.user2_name}</strong>
+//               <p>{c.last_message}</p>
 //             </div>
 //           </div>
 //         ))}
 //       </div>
 
 //       <div className="chat-window">
-//         <div className="chat-header">
-//           <h3>{activeConversation.name}</h3>
-//           <span className={`status ${activeConversation.online ? 'online' : 'offline'}`}>
-//             {activeConversation.online ? 'Online' : 'Offline'}
-//           </span>
-//         </div>
-//         <div className="chat-messages">
-//           {messages.map((msg, idx) => (
-//             <div key={idx} className={`message ${msg.sender}`}>
-//               <p>{msg.text}</p>
+//         {activeConversation ? (
+//           <>
+//             <div className="chat-header">
+//               <h3>{activeConversation.user2_name}</h3>
+//               <span className={`status ${activeConversation.online ? 'online' : 'offline'}`}>
+//                 {activeConversation.online ? 'Online' : 'Offline'}
+//               </span>
 //             </div>
-//           ))}
-//         </div>
-//         <div className="chat-input">
-//           <input
-//             type="text"
-//             placeholder="Type your message..."
-//             value={input}
-//             onChange={(e) => setInput(e.target.value)}
-//             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-//           />
-//           <button onClick={handleSend}>Send</button>
-//         </div>
+//             <div className="chat-messages">
+//               {messages.map((msg, idx) => (
+//                 <div key={idx} className={`message ${msg.sender_id === userId ? 'me' : 'them'}`}>
+//                   <p>{msg.content}</p>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="chat-input">
+//               <input
+//                 type="text"
+//                 placeholder="Type your message..."
+//                 value={input}
+//                 onChange={(e) => setInput(e.target.value)}
+//                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+//               />
+//               <button onClick={handleSend}>Send</button>
+//             </div>
+//           </>
+//         ) : (
+//           <p>Select a conversation to start chatting</p>
+//         )}
 //       </div>
 //     </div>
 //   );
@@ -72,119 +140,183 @@
 // export default ChatPage;
 
 
-import React, { useEffect, useState } from 'react';
-import {
-  fetchConversations,
-  fetchMessages,
-  sendMessage,
-} from '../services/chatAPI';
+import React, { useState, useEffect } from 'react';
+import './ChatPage.css';
 
-export default function ChatPage({ currentUserId }) {
-  const [conversations, setConversations] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+const ChatPage = () => {
+  const [conversations, setConversations] = useState([]); // Conversations fetched from the backend
+  const [activeConversation, setActiveConversation] = useState(null); // Currently active conversation
+  const [messages, setMessages] = useState([]); // Messages for the active conversation
+  const [input, setInput] = useState(''); // Input for the message box
+  const [newChatUser, setNewChatUser] = useState(''); // Input for starting a new chat
+  const userId = 'user1'; // Replace with the logged-in user's ID
 
+  // Fetch conversations from the backend
   useEffect(() => {
-    fetchConversations(currentUserId)
-      .then((res) => setConversations(res.data))
-      .catch((err) => console.error(err));
-  }, [currentUserId]);
-
-  const loadMessages = (convo) => {
-    setSelectedConversation(convo);
-    fetchMessages(convo._id)
-      .then((res) => setMessages(res.data))
-      .catch((err) => console.error(err));
-  };
-
-  const handleSend = async () => {
-    if (!newMessage.trim()) return;
-
-    const messageData = {
-      conversation_id: selectedConversation._id,
-      sender_id: currentUserId,
-      receiver_id: currentUserId === selectedConversation.user1_id
-        ? selectedConversation.user2_id
-        : selectedConversation.user1_id,
-      content: newMessage,
+    const fetchConversations = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/api/conversations/${userId}`);
+        const data = await response.json();
+        if (data.success) {
+          setConversations(data.conversations);
+          setActiveConversation(data.conversations[0]); // Set the first conversation as active
+        } else {
+          console.error('Failed to fetch conversations:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching conversations:', error);
+      }
     };
 
-    await sendMessage(messageData);
-    setNewMessage('');
-    loadMessages(selectedConversation); // reload messages
+    fetchConversations();
+  }, [userId]);
+
+  // Fetch messages for the active conversation
+  useEffect(() => {
+    if (!activeConversation) return;
+
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/api/messages/${activeConversation._id}`);
+        const data = await response.json();
+        if (data.success) {
+          setMessages(data.messages);
+        } else {
+          console.error('Failed to fetch messages:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
+  }, [activeConversation]);
+
+  // Handle sending a new message
+  const handleSend = async () => {
+    if (input.trim() === '') return;
+
+    const newMessage = {
+      conversation_id: activeConversation._id,
+      sender_id: userId,
+      receiver_id: activeConversation.user2_id, // Assuming user2_id is the receiver
+      content: input,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMessage),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessages([...messages, data.message]); // Add the new message to the chat
+        setInput(''); // Clear the input field
+      } else {
+        console.error('Failed to send message:', data.error);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+
+  // Handle starting a new chat
+  const handleNewChat = async () => {
+    if (newChatUser.trim() === '') return;
+
+    const newConversation = {
+      user1_id: userId,
+      user2_id: newChatUser, // The ID of the user/mentor to start a chat with
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newConversation),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setConversations([...conversations, data.conversation]); // Add the new conversation to the list
+        setActiveConversation(data.conversation); // Set the new conversation as active
+        setNewChatUser(''); // Clear the input field
+      } else {
+        console.error('Failed to start a new chat:', data.error);
+      }
+    } catch (error) {
+      console.error('Error starting a new chat:', error);
+    }
   };
 
   return (
-    <div style={{ display: 'flex', height: '80vh' }}>
-      {/* Left panel - Conversations */}
-      <div style={{ width: '30%', borderRight: '1px solid #ccc', padding: '10px' }}>
+    <div className="chat-page">
+      <div className="conversation-list">
         <h3>Chats</h3>
-        {conversations.map((convo) => (
+        {conversations.map((c) => (
           <div
-            key={convo._id}
-            onClick={() => loadMessages(convo)}
-            style={{
-              cursor: 'pointer',
-              padding: '8px',
-              background: selectedConversation?._id === convo._id ? '#ffe0b2' : 'white',
-              borderRadius: '5px',
-              marginBottom: '5px',
-            }}
+            key={c._id}
+            className={`conversation-item ${activeConversation && activeConversation._id === c._id ? 'active' : ''}`}
+            onClick={() => setActiveConversation(c)}
           >
-            Chat with: {currentUserId === convo.user1_id ? convo.user2_name : convo.user1_name}
+            <div className={`status-dot ${c.online ? 'online' : 'offline'}`}></div>
+            <div>
+              <strong>{c.user2_name}</strong>
+              <p>{c.last_message}</p>
+            </div>
           </div>
         ))}
+        <div className="new-chat">
+          <input
+            type="text"
+            placeholder="Enter user/mentor ID to start a chat"
+            value={newChatUser}
+            onChange={(e) => setNewChatUser(e.target.value)}
+          />
+          <button onClick={handleNewChat}>Start Chat</button>
+        </div>
       </div>
 
-      {/* Right panel - Chat window */}
-      <div style={{ width: '70%', padding: '10px', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flexGrow: 1, overflowY: 'auto', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-          {messages.map((msg) => (
-            <div key={msg._id} style={{ textAlign: msg.sender_id === currentUserId ? 'right' : 'left' }}>
-              <div
-                style={{
-                  display: 'inline-block',
-                  background: msg.sender_id === currentUserId ? '#f57c00' : '#ffcc80',
-                  padding: '8px',
-                  margin: '4px',
-                  borderRadius: '10px',
-                  color: 'white',
-                  maxWidth: '60%',
-                }}
-              >
-                {msg.content}
-              </div>
+      <div className="chat-window">
+        {activeConversation ? (
+          <>
+            <div className="chat-header">
+              <h3>{activeConversation.user2_name}</h3>
+              <span className={`status ${activeConversation.online ? 'online' : 'offline'}`}>
+                {activeConversation.online ? 'Online' : 'Offline'}
+              </span>
             </div>
-          ))}
-        </div>
-
-        {/* Message input */}
-        {selectedConversation && (
-          <div style={{ marginTop: '10px', display: 'flex' }}>
-            <input
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              style={{ flexGrow: 1, padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-              placeholder="Type your message..."
-            />
-            <button
-              onClick={handleSend}
-              style={{
-                marginLeft: '8px',
-                padding: '8px 16px',
-                backgroundColor: 'orange',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Send
-            </button>
-          </div>
+            <div className="chat-messages">
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`message ${msg.sender_id === userId ? 'me' : 'them'}`}>
+                  <p>{msg.content}</p>
+                </div>
+              ))}
+            </div>
+            <div className="chat-input">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              />
+              <button onClick={handleSend}>Send</button>
+            </div>
+          </>
+        ) : (
+          <p>Select a conversation to start chatting</p>
         )}
       </div>
     </div>
   );
-}
+};
+
+export default ChatPage;

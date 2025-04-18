@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import MentorDashboard from "./pages/MentorDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import CreatePost from "./pages/CreatePost";
-import "./style.css";
+// import "./style.css";
 import MentorSignup from "./pages/MentorSignup";
 import MentorProfilePage from "./pages/MentorProfilePage";
 import CommunityPage from "./pages/CommunityPage";
@@ -16,6 +16,9 @@ import MentorDiscovery from "./pages/MentorDiscovery";
 import ChatPage from "./pages/ChatPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import SettingsPage from "./pages/SettingsPage";
+import JoinGroups from "./pages/JoinGroupsPage";
+import ResourcesPage from "./pages/ResourcesPage";
+import AddWorkshop from "./pages/AddWorkshop";
 
 const App = () => {
   return (
@@ -39,6 +42,9 @@ const App = () => {
           <Route path="/chat" element={<ChatPage/>} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/join-groups" element={<JoinGroups />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/add-workshop" element={<AddWorkshop />} />
         </Routes>
       </div>
     </Router>

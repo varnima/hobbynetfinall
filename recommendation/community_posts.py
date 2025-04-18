@@ -39,14 +39,30 @@ def create_post():
 
     return jsonify({"success": True, "message": "Post created", "post_id": str(result.inserted_id)})
 
-# ✅ Get All Posts
+# # ✅ Get All Posts
+# @community_posts.route("/posts", methods=["GET"])
+# def get_posts():
+#     posts = list(posts_collection.find({}))
+    
+#     for post in posts:
+#         post["_id"] = str(post["_id"])  # Convert ObjectId to string
+    
+#     return jsonify({"success": True, "posts": posts})
+
+# ✅ Get Posts (Filtered by Hobby)
 @community_posts.route("/posts", methods=["GET"])
 def get_posts():
-    posts = list(posts_collection.find({}))
-    
+    hobby = request.args.get("hobby", "All")  # Default to "All" if no hobby is provided
+
+    query = {}
+    if hobby != "All":
+        query["hobby"] = hobby
+
+    posts = list(posts_collection.find(query).sort("timestamp", -1))  # Sort by latest posts
+
     for post in posts:
         post["_id"] = str(post["_id"])  # Convert ObjectId to string
-    
+
     return jsonify({"success": True, "posts": posts})
 
 # ✅ Get Most Liked Posts
