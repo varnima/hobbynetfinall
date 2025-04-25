@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import "./JoinGroupsPage.css";
 
 function JoinGroupsPage() {
   const [groups, setGroups] = useState([]); // All groups fetched from the backend
   const [joinedGroups, setJoinedGroups] = useState([]); // Groups the user has joined
-  const userId = "123"; // Replace with the actual user ID from authentication
+  const [userId, setUserId] = useState("64f9c2e8e4b0f5a2b3c4d5e6"); // Replace with dynamic user ID
 
   // Fetch all groups and joined groups on component mount
   useEffect(() => {
@@ -46,39 +47,25 @@ function JoinGroupsPage() {
   // Check if a group is already joined
   const isJoined = (groupId) => joinedGroups.includes(groupId);
 
-  // Group the groups by hobby
-  const groupsByHobby = groups.reduce((acc, group) => {
-    if (!acc[group.hobby]) {
-      acc[group.hobby] = [];
-    }
-    acc[group.hobby].push(group);
-    return acc;
-  }, {});
-
   return (
     <div className="join-groups-page">
       <h2>Join Hobby Groups</h2>
-
-      {Object.keys(groupsByHobby).map((hobby) => (
-        <div key={hobby} className="hobby-section">
-          <h3>🎯 Hobby: {hobby}</h3>
-          <div className="group-list">
-            {groupsByHobby[hobby].map((group) => (
-              <div key={group._id} className="group-card">
-                <h3>{group.name}</h3>
-                <p>{group.description}</p>
-                <button
-                  onClick={() => handleJoin(group._id)}
-                  disabled={isJoined(group._id)}
-                  className={isJoined(group._id) ? "joined" : ""}
-                >
-                  {isJoined(group._id) ? "✔ Joined" : "Join"}
-                </button>
-              </div>
-            ))}
+      <div className="group-list">
+        {groups.map((group) => (
+          <div key={group._id} className="group-card">
+            <h3>{group.name}</h3>
+            <p>{group.description}</p>
+            <p>🎯 Hobby: {group.hobby}</p>
+            <button
+              onClick={() => handleJoin(group._id)}
+              disabled={isJoined(group._id)}
+              className={isJoined(group._id) ? "joined" : ""}
+            >
+              {isJoined(group._id) ? "✔ Joined" : "Join"}
+            </button>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

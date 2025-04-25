@@ -120,11 +120,13 @@ def serialize_group(group):
         "hobby": group["hobby"]
     }
 
-# Fetch all groups
 @join_groups_bp.route('/api/groups', methods=['GET'])
 def get_groups():
-    groups = list(groups_collection.find())
-    return jsonify([serialize_group(group) for group in groups]), 200
+    try:
+        groups = list(groups_collection.find())  # Fetch all groups from the database
+        return jsonify([serialize_group(group) for group in groups]), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 # Join a group
 @join_groups_bp.route('/api/groups/join', methods=['POST'])

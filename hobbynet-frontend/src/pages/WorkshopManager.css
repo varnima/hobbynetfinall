@@ -1,0 +1,83 @@
+.workshop-manager {
+    padding: 30px;
+    background-color: #fffde7;
+    min-height: 100vh;
+    color: #1a1a1a;
+  }
+  
+  .section-title {
+    color: #ff9800;
+    margin-bottom: 20px;
+  }
+  
+  .workshop-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+  
+  .workshop-form input,
+  .workshop-form textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .workshop-form button {
+    background-color: #ffb300;
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .workshop-form button:hover {
+    background-color: #ffa000;
+  }
+  
+  .workshop-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .workshop-list th,
+  .workshop-list td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .workshop-list th {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  
+  .workshop-list td a {
+    color: #ff9800;
+    text-decoration: none;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  .empty-text {
+    color: #999;
+    font-style: italic;
+  }
+  

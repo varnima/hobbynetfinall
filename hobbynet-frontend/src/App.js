@@ -19,6 +19,7 @@ import SettingsPage from "./pages/SettingsPage";
 import JoinGroups from "./pages/JoinGroupsPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import AddWorkshop from "./pages/AddWorkshop";
+import WorkshopManager from "./pages/WorkshopManager";
 
 const App = () => {
   return (
@@ -44,7 +45,10 @@ const App = () => {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/join-groups" element={<JoinGroups />} />
           <Route path="/resources" element={<ResourcesPage />} />
+          
           <Route path="/add-workshop" element={<AddWorkshop />} />
+          <Route path="/workshop-manager" element={<WorkshopManager />} />
+
         </Routes>
       </div>
     </Router>

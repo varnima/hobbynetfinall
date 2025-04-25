@@ -1,0 +1,52 @@
+.mentor-sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #1a1a1a; /* Black */
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+  }
+  
+  .mentor-profile {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .mentor-profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid orange;
+  }
+  
+  .mentor-name {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #ffc107; /* Yellow */
+  }
+  
+  .mentor-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mentor-nav li {
+    margin: 15px 0;
+  }
+  
+  .mentor-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+  
+  .mentor-nav a:hover {
+    background: linear-gradient(to right, #ffa726, #ffca28); /* Orange to yellow */
+    color: #000;
+  }
+  

@@ -94,12 +94,12 @@ const CommunityPage = () => {
     <div className="community-container">
       <header className="community-header">
         <h1>Community Page</h1>
-        <p>Explore posts and mentors for your favorite hobbies!</p>
+        <h2>Explore posts and mentors for your favorite hobbies!</h2>
       </header>
 
       {/* Create Post Section */}
       <section className="create-post-section">
-        <h2>Create a Post</h2>
+        <h3>Create a Post</h3>
         <form onSubmit={handleCreatePost}>
           <input
             type="text"

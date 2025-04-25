@@ -1,12 +1,16 @@
 
 // import React, { useState, useEffect } from 'react';
+// import io from 'socket.io-client';
 // import './ChatPage.css';
+
+// const socket = io('http://127.0.0.1:5000'); // Connect to the backend WebSocket server
 
 // const ChatPage = () => {
 //   const [conversations, setConversations] = useState([]); // Conversations fetched from the backend
 //   const [activeConversation, setActiveConversation] = useState(null); // Currently active conversation
 //   const [messages, setMessages] = useState([]); // Messages for the active conversation
 //   const [input, setInput] = useState(''); // Input for the message box
+//   const [newChatUser, setNewChatUser] = useState(''); // Input for starting a new chat
 //   const userId = 'user1'; // Replace with the logged-in user's ID
 
 //   // Fetch conversations from the backend
@@ -48,6 +52,22 @@
 //     };
 
 //     fetchMessages();
+
+//     // Join the conversation room for real-time updates
+//     socket.emit('join', { conversation_id: activeConversation._id });
+
+//     // Listen for new messages
+//     socket.on('new_message', (message) => {
+//       if (message.conversation_id === activeConversation._id) {
+//         setMessages((prevMessages) => [...prevMessages, message]);
+//       }
+//     });
+
+//     // Cleanup on component unmount or when activeConversation changes
+//     return () => {
+//       socket.emit('leave', { conversation_id: activeConversation._id });
+//       socket.off('new_message');
+//     };
 //   }, [activeConversation]);
 
 //   // Handle sending a new message
@@ -63,23 +83,45 @@
 //     };
 
 //     try {
-//       const response = await fetch('http://127.0.0.1:5000/api/messages', {
+//       // Emit the message to the server via WebSocket
+//       socket.emit('send_message', newMessage);
+
+//       // Optimistically update the UI
+//       setMessages([...messages, newMessage]);
+//       setInput(''); // Clear the input field
+//     } catch (error) {
+//       console.error('Error sending message:', error);
+//     }
+//   };
+
+//   // Handle starting a new chat
+//   const handleNewChat = async () => {
+//     if (newChatUser.trim() === '') return;
+
+//     const newConversation = {
+//       user1_id: userId,
+//       user2_id: newChatUser, // The ID of the user/mentor to start a chat with
+//     };
+
+//     try {
+//       const response = await fetch('http://127.0.0.1:5000/api/conversations', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
 //         },
-//         body: JSON.stringify(newMessage),
+//         body: JSON.stringify(newConversation),
 //       });
 
 //       const data = await response.json();
 //       if (data.success) {
-//         setMessages([...messages, data.message]); // Add the new message to the chat
-//         setInput(''); // Clear the input field
+//         setConversations([...conversations, data.conversation]); // Add the new conversation to the list
+//         setActiveConversation(data.conversation); // Set the new conversation as active
+//         setNewChatUser(''); // Clear the input field
 //       } else {
-//         console.error('Failed to send message:', data.error);
+//         console.error('Failed to start a new chat:', data.error);
 //       }
 //     } catch (error) {
-//       console.error('Error sending message:', error);
+//       console.error('Error starting a new chat:', error);
 //     }
 //   };
 
@@ -100,6 +142,15 @@
 //             </div>
 //           </div>
 //         ))}
+//         <div className="new-chat">
+//           <input
+//             type="text"
+//             placeholder="Enter user/mentor ID to start a chat"
+//             value={newChatUser}
+//             onChange={(e) => setNewChatUser(e.target.value)}
+//           />
+//           <button onClick={handleNewChat}>Start Chat</button>
+//         </div>
 //       </div>
 
 //       <div className="chat-window">
@@ -140,8 +191,12 @@
 // export default ChatPage;
 
 
+
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import './ChatPage.css';
+
+const socket = io('http://127.0.0.1:5000'); // Connect to the backend WebSocket server
 
 const ChatPage = () => {
   const [conversations, setConversations] = useState([]); // Conversations fetched from the backend
@@ -190,6 +245,22 @@ const ChatPage = () => {
     };
 
     fetchMessages();
+
+    // Join the conversation room for real-time updates
+    socket.emit('join', { conversation_id: activeConversation._id });
+
+    // Listen for new messages
+    socket.on('new_message', (message) => {
+      if (message.conversation_id === activeConversation._id) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    });
+
+    // Cleanup on component unmount or when activeConversation changes
+    return () => {
+      socket.emit('leave', { conversation_id: activeConversation._id });
+      socket.off('new_message');
+    };
   }, [activeConversation]);
 
   // Handle sending a new message
@@ -205,21 +276,12 @@ const ChatPage = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMessage),
-      });
+      // Emit the message to the server via WebSocket
+      socket.emit('send_message', newMessage);
 
-      const data = await response.json();
-      if (data.success) {
-        setMessages([...messages, data.message]); // Add the new message to the chat
-        setInput(''); // Clear the input field
-      } else {
-        console.error('Failed to send message:', data.error);
-      }
+      // Optimistically update the UI
+      setMessages([...messages, newMessage]);
+      setInput(''); // Clear the input field
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -295,7 +357,10 @@ const ChatPage = () => {
             </div>
             <div className="chat-messages">
               {messages.map((msg, idx) => (
-                <div key={idx} className={`message ${msg.sender_id === userId ? 'me' : 'them'}`}>
+                <div
+                  key={idx}
+                  className={`message ${msg.sender_id === userId ? 'me' : 'them'}`}
+                >
                   <p>{msg.content}</p>
                 </div>
               ))}

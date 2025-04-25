@@ -1,66 +1,75 @@
-// import React from "react";
-// import "./Dashboard.css";
-
-// const MentorDashboard = () => {
-//   const username = localStorage.getItem("username");
-
-//   return (
-//     <div className="dashboard-container">
-//       <h1 className="dashboard-title">Welcome, {username}!</h1>
-//       <p className="dashboard-message">This is your Mentor Dashboard.</p>
-//     </div>
-//   );
-// };
-
-// export default MentorDashboard;
-// import React from "react";
-
-// const MentorDashboard = () => {
-//   return (
-//     <div style={{ textAlign: "center", padding: "50px" }}>
-//       <h1>Welcome to the Mentor Dashboard!</h1>
-//       <p>Here you can manage your profile, view mentees, and more.</p>
-//     </div>
-//   );
-// };
-
-// export default MentorDashboard;
+ 
 
 import React from 'react';
 import './MentorDashboard.css';
 
+import MentorSidebar from './MentorSidebar'; // Import the MentorSidebar component
+
 const MentorDashboard = () => {
   return (
-    <div className="mentor-dashboard">
-      <header className="mentor-header">
-        <h1>Welcome Mentor!</h1>
-        <p>Manage your profile, sessions, and messages here.</p>
-      </header>
+    <div style={{ display: 'flex' }}>
+      {/* Sidebar */}
+      <MentorSidebar />
 
-      <section className="mentor-section">
-        <div className="dashboard-card">
-          <h2>Upcoming Sessions</h2>
-          <ul>
-            <li>Session with Priya - April 15, 5:00 PM</li>
-            <li>Session with Rahul - April 17, 2:00 PM</li>
-          </ul>
-        </div>
+      {/* Main Content */}
+      <div style={{ marginLeft: '250px', padding: '20px', width: '100%' }}>
+        <div className="mentor-dashboard">
+          <header className="mentor-header">
+            <h1>Welcome Mentor!</h1>
+            <p>Manage your profile, sessions, and messages here.</p>
+          </header>
 
-        <div className="dashboard-card">
-          <h2>Messages</h2>
-          <ul>
-            <li><strong>Aman:</strong> Can we reschedule?</li>
-            <li><strong>Neha:</strong> Thanks for the session!</li>
-          </ul>
-        </div>
+          {/* Mentor Dashboard Home Section */}
+          <div className="mentor-dashboard-home">
+            <h2 className="welcome-text">Welcome back, Mentor Name! 👋</h2>
 
-        <div className="dashboard-card">
-          <h2>My Ratings</h2>
-          <p>⭐ 4.8 (32 Reviews)</p>
+            <div className="stats-container">
+              <div className="stat-card">
+                <h3>👥 Students Connected</h3>
+                <p>15</p>
+              </div>
+              <div className="stat-card">
+                <h3>📅 Workshops Conducted</h3>
+                <p>7</p>
+              </div>
+              <div className="stat-card">
+                <h3>❤️ Posts Liked/Commented</h3>
+                <p>42</p>
+              </div>
+              <div className="stat-card">
+                <h3>👁️ Profile Views</h3>
+                <p>120</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Existing Mentor Dashboard Sections */}
+          <section className="mentor-section">
+            <div className="dashboard-card">
+              <h2>Upcoming Sessions</h2>
+              <ul>
+                <li>Session with Priya - April 15, 5:00 PM</li>
+                <li>Session with Rahul - April 17, 2:00 PM</li>
+              </ul>
+            </div>
+
+            <div className="dashboard-card">
+              <h2>Messages</h2>
+              <ul>
+                <li><strong>Aman:</strong> Can we reschedule?</li>
+                <li><strong>Neha:</strong> Thanks for the session!</li>
+              </ul>
+            </div>
+
+            <div className="dashboard-card">
+              <h2>My Ratings</h2>
+              <p>⭐ 4.8 (32 Reviews)</p>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default MentorDashboard; 
+export default MentorDashboard;
